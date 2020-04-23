@@ -1,39 +1,38 @@
-import React from "react";
-import PropTypes from "prop-types";
-import {
-  Statistics,
-  Title,
-  List,
-  ListElemnt,
-  Label,
-  Percentage
-} from "./Statistic.styled";
-import { getRandomColor } from "../../randomColor";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Styles from './Statistic.module.css';
 
-const Statistic = ({ statistics, title }) => (
-  <Statistics title={title}>
-    {title && <Title>{title}</Title>}
+const backgroundColorGenerator = () =>
+  `rgb(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255})`;
 
-    <List>
-      {statistics.map(stat => (
-        <ListElemnt key={stat.id} style={{ backgroundColor: getRandomColor() }}>
-          <Label>{stat.label}</Label>
-          <Percentage>{stat.percentage}%</Percentage>
-        </ListElemnt>
+const Statistic = ({ title, stats = [] }) => (
+  <section className={Styles.statistics}>
+    {title && <h2 className={Styles.title}>{title}</h2>}
+
+    <ul className={Styles.statList}>
+      {stats.map(({ id, label, percentage }) => (
+        <li
+          key={id}
+          style={{ backgroundColor: backgroundColorGenerator() }}
+          className={Styles.item}
+        >
+          <span className={Styles.label}>{label}</span>
+          <span className={Styles.percentage}>{percentage}%</span>
+        </li>
       ))}
-    </List>
-  </Statistics>
+    </ul>
+  </section>
 );
 
-Statistic.propTypes = {
-  statistics: PropTypes.arrayOf(
-    PropTypes.exact({
-      label: PropTypes.string.isRequired,
-      percentage: PropTypes.number.isRequired,
-      id: PropTypes.string.isRequired
-    })
+Statistic.propType = {
+  title: PropTypes.string,
+  stats: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string,
+      percentage: PropTypes.number,
+    }),
   ).isRequired,
-  title: PropTypes.string
 };
 
 export default Statistic;

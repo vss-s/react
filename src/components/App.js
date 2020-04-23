@@ -1,21 +1,19 @@
-import React from "react";
-import Profile from "./Profile/Profile";
-import Statisctic from "./Statistic/Statistic";
-import FriendList from "./FriendList/FriendList";
-import Transactions from "./Transactions/Transactions";
-import { Global } from "../GlobalStyle";
-import user from "../data/user.json";
-import stats from "../data/statistical-data.json";
-import friends from "../data/friends.json";
-import transactions from "../data/transactions.json";
+import React from 'react';
+import Profile from './Profile/Profile';
+import userData from './Profile/user.json';
+import Statistic from './Statistic/Statistic';
+import statisticalData from './Statistic/statistical-data.json';
+import friends from './FriendList/friends.json';
+import FriendList from './FriendList/FriendList';
+import TransactionHistory from './TransactionHistory/TransactionHistory';
+import transactions from './TransactionHistory/transactions.json';
 
 const App = () => (
   <div>
-    <Global />
-    <Profile user={user} />
-    <Statisctic statistics={stats} title="Upload stats" />
+    <Profile {...userData} />
+    <Statistic title="Upload stats" stats={statisticalData} />
     <FriendList friends={friends} />
-    <Transactions transactions={transactions} />
+    <TransactionHistory transactions={transactions} />
   </div>
 );
 
